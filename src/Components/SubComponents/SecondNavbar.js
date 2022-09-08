@@ -38,7 +38,6 @@ const SecondNavbar = () => {
   }, []);
   return (
     <>
-      {console.log("conteries", counteries)}
       <div className="SeconNavbar container-fluid">
         <div className="MaxWidth">
           <Navbar className="row">

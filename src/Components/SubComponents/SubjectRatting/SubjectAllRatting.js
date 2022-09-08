@@ -35,10 +35,10 @@ export default function SubjectAllRatting() {
                     return (
                       <HelpfullRating
                         commentID={each.subjectCommentID}
-                        ID={each.user.userID}
-                        Name={each.user.userID}
+                        ID={each.User.userID}
+                        Name={each.User.userID}
                         yearTaken={each.year}
-                        rating={each.hardlevel.name}
+                        rating={each.HardLevel.name}
                         Feedback={each.comment}
                         Subject={each.Subjectt.subjectCode}
                         Grade={each.grade}

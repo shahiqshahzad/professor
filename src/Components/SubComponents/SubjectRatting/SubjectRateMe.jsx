@@ -171,8 +171,8 @@ class SubjectRateMe extends React.Component {
                         {console.log("state", this.state.grades)}
                         <div className="col-lg-12 col-md-6 col-12 form-group px-1 mb-2">
                           <SearchableSelect
-                            name="name"
-                            value={this.state.name}
+                            name="gradeID"
+                            value={this.state.gradeID}
                             function={this.onChange}
                             list={this.state.grades}
                             objName="name"
@@ -291,13 +291,12 @@ class SubjectRateMe extends React.Component {
                               htmlFor="hardrating-3-2"
                             >
                               <i>
-                                {" "}
                                 <img
                                   className="mb-3"
                                   src={Neutral_Emoji}
                                   alt=""
                                   height="36px"
-                                />{" "}
+                                />
                               </i>
                               <p className="Bold Black FS_10">
                                 {this.state.hardlevels[2].name}
@@ -453,6 +452,8 @@ class SubjectRateMe extends React.Component {
                           style={{ color: "red" }}
                           id="chkbox"
                         ></p>
+                        {console.log("tags", this.state.tags)}
+
                         {this.state.tags.map((each) => {
                           return (
                             <div className="form-check-inline col-5 col-sm-3 my-2 text-center  px-1">
@@ -460,7 +461,7 @@ class SubjectRateMe extends React.Component {
                                 type="checkbox"
                                 id={each.tagEN}
                                 className="chkbox"
-                                value={each.tagEN}
+                                value={each.tagID}
                                 name="selectedTags"
                                 disabled={
                                   !this.state.selectedTags.includes(
@@ -486,6 +487,8 @@ class SubjectRateMe extends React.Component {
                       <div className="col-12 mt-3  px-0 RadioToButton Tags">
                         <p className="FS_16 mb-0 Bold">Exam Form</p>
                         <ul class="row Tags RadioToButton px-0 m-0">
+                          {console.log("exam", this.state.examform)}
+
                           {this.state.examform.map((exam) => {
                             return (
                               <li className="text-center px-1 mt-3">
@@ -493,7 +496,7 @@ class SubjectRateMe extends React.Component {
                                   type="radio"
                                   id={exam.name}
                                   name="ExamForm"
-                                  value={exam.name}
+                                  value={exam.examFromID}
                                   onClick={this.handleChange}
                                 />
                                 <label
@@ -525,14 +528,14 @@ class SubjectRateMe extends React.Component {
                           <div className="text-center">
                             <input
                               type="radio"
-                              id="Yes"
+                              id={1}
                               name="again"
-                              value="true"
+                              value={1}
                               onClick={this.handleChange}
                             />
                             <label
                               className="yes-no-radiobtn py-1 px-3 FS_10"
-                              htmlFor="Yes"
+                              htmlFor={1}
                             >
                               Yes
                             </label>
@@ -541,14 +544,14 @@ class SubjectRateMe extends React.Component {
                             {" "}
                             <input
                               type="radio"
-                              id="No"
+                              id={0}
                               name="again"
-                              value="false"
+                              value={0}
                               onClick={this.handleChange}
                             />
                             <label
                               className="yes-no-radiobtn py-1 px-3 FS_10"
-                              htmlFor="No"
+                              htmlFor={0}
                             >
                               No
                             </label>

@@ -1,10 +1,13 @@
 import axios from "axios";
 import { message } from "antd";
+import { Redirect, useNavigate } from "react-router-dom";
+import React from "react";
 
 class PostData {
   constructor() {
     this.result = [];
   }
+
   BookAdd = (data, mthd) => {
     const res = async () => {
       const resp = await axios
@@ -61,13 +64,13 @@ class PostData {
     return res();
   };
   SubjectRattingAdd = (data, mthd) => {
+    console.log(data.selectedTags);
     const res = async () => {
       const resp = await axios
         .post("subjects/addComment", {
           subjectID: data.subjectID,
           year: data.year,
-          grade: data.name, //TODO: need gradeID instead of name
-          rating: data.ratting, //TODO: tobe removed
+          grade: data.gradeID, //TODO: need gradeID instead of name
           hardness: data.hardRating, //TODO: need hardLevelID instead of hardRating
           exams: data.ExamForm, //TODO: need ExamFormID instead of ExamForm
           project: data.Project,
@@ -80,8 +83,11 @@ class PostData {
           console.log(error);
         });
       this.result = resp;
-      console.log(resp.data.message);
-      message.error(resp.data.message);
+      if (resp.data.success) {
+        message.success(resp.data.message);
+      } else {
+        message.error(resp.data.message);
+      }
       return resp;
     };
     return res();

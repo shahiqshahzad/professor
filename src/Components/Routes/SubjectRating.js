@@ -46,6 +46,7 @@ class SubjectRating extends React.Component {
       0,
       this.state.visible,
     ).map((Subject) => {
+      console.log(Subject);
       return (
         <DisplayProfessorsSubject
           key={Subject.subjectID}

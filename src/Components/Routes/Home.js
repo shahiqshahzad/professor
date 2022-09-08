@@ -62,7 +62,6 @@ class Home extends React.Component {
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MTA2OTYsImlhdCI6MTYwMjQwODI5NX0.WlwJWiGOHEkADrk97v_QDjRfW4CIHQQQSR5r_c_p7-I",
       })
       .then((res) => {
-        console.log(res);
         if (res.data.success) {
           localStorage.setItem("ProfessoryloggedIn", "true");
           localStorage.setItem("x-auth-token", res.data.data.token);

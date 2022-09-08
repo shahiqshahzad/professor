@@ -3,7 +3,7 @@ import SecondNavbar from "../SubComponents/SecondNavbar";
 import profile from "../../Assets/img/Profile.png";
 import Comment from "../SubComponents/Shared/Comment.jsx";
 import ClassroomDisplay from "../SubComponents/Classroom/ClassroomDisplay";
-import icon from "../../Assets/img/icon.svg";
+import icon from "../../Assets/img/borderBackPack.png";
 import pdf from "../../Assets/img/pdf.png";
 import folder from "../../Assets/img/folder_icon.png";
 import Video from "../../Assets/img/video_icon.png";
