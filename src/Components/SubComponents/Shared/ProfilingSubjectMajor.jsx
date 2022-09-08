@@ -17,42 +17,48 @@ const Profile = (props) => {
           <b>{props.subjectDescription}</b>
         </div>
 
-        <div className="row w-100 my-4">
-          <div className="col px-xl-3 px-lg-1 px-sm-3 px-1 Rating">
-            <div className="Edge btm_shadow">
-              <div className="p-2">
-                <p>Average Grade</p>
-                <img src={Aplus} alt="" />
-              </div>
-              <div>
-                <NavLink
-                  className="nav-link m-0 p-0 mx-auto"
-                  to={`/SubjectRating/RateMe/${props.majorID}/${props.subjectID}`}
-                >
-                  <button className=" w-100 border-0 filled_btn d-block bottom-0">
-                    Rate Me
-                  </button>
-                </NavLink>
-              </div>
+        <div className="row container w-100 ">
+          <div className="col-6">
+            <div
+              style={{
+                border: "1px solid black",
+                borderRadius: "50%",
+                height: "100px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <h3> {props.hardLevel.percentage}</h3>
             </div>
+            <div className=" mt-3">Overall Rating</div>
           </div>
 
-          <div className="col px-xl-3 px-lg-1 px-sm-3 px-1 Rating">
-            <div className="Edge btm_shadow">
-              <div className="p-2">
-                <p>Hardness Level</p>
-                <img src={sad} alt="" />
-              </div>
-              <div>
-                <button className=" w-100 border-0 filled_btn d-block bottom-0">
-                  Share
-                </button>
-              </div>
+          <div className="col-6 ">
+            <div
+              style={{
+                border: "1px solid black",
+                borderRadius: "50%",
+                height: "100px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <h3 className="Bold">{props.Grade.grade}</h3>
             </div>
+            <div className="Bold hs-3 mt-3"> Average Grade</div>
           </div>
         </div>
         <div className="ratting-document-btn container ">
-          <button>Documents</button>
+          <NavLink
+            className="nav-link m-0 p-0 mx-auto"
+            to={`/SubjectRating/RateMe/${props.majorID}/${props.subjectID}`}
+          >
+            <button className=" w-100 border-0 filled_btn d-block bottom-0">
+              Rate Me
+            </button>
+          </NavLink>
         </div>
         <div className="col-12 mt-3 px-0">
           <p className="FS_20 mb-0 Bold">Top 3 tags or this {props.from}</p>

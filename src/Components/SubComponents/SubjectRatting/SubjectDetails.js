@@ -16,12 +16,9 @@ const SubjectDetails = () => {
   const [Loading, setLoading] = useState(true);
   const getData = async () => {
     const data = await GetData.SubjectMajorDetails(SubjectId);
-
     setSubjectMajorData(data);
-
     setLoading(false);
   };
-
   useEffect(() => {
     getData();
   }, []);
@@ -40,7 +37,7 @@ const SubjectDetails = () => {
                   {subjectMajorData && (
                     <Profile
                       subjectID={subjectMajorData.subjectID}
-                      majorID={"12"}
+                      majorID={subjectMajorData.majorID}
                       Img={SubjectImage}
                       Name={subjectMajorData.subjectName}
                       Ratting={subjectMajorData.hardLevel.hardname}
@@ -48,22 +45,24 @@ const SubjectDetails = () => {
                       from="Subject"
                       subjectDescription={subjectMajorData.subjectDescription}
                       Tags={subjectMajorData.bestTags}
+                      hardLevel={subjectMajorData.hardLevel}
                     />
                   )}
                 </div>
                 <div className="space-between col-12 col-lg-8 mt-3 pt-5 pt-lg-0">
                   <h3 className="mb-0 text-center">Most HelpFull Rating</h3>
-                  {subjectMajorData.helpFull !== null ? (
+                  {Object.keys(subjectMajorData.helpFull).length !== 0 ? (
                     <>
+                      {console.log(subjectMajorData.helpFull.length)}
                       <HelpfullRating
                         commentID={subjectMajorData.helpFull.commentID}
                         ID={subjectMajorData.helpFull.subjectID}
-                        hardness={"d"}
-                        Name={"d"}
+                        // hardness={subjectMajorData.hardlevel.hardname}
+                        Name={subjectMajorData.helpFull.User.name}
                         yearTaken={subjectMajorData.helpFull.year}
                         rating={subjectMajorData.helpFull.rating}
                         Feedback={subjectMajorData.helpFull.comment}
-                        Subject={"d"}
+                        Subject={subjectMajorData.helpFull.Subjectt.subjectCode}
                         Grade={subjectMajorData.helpFull.grade}
                         Like={subjectMajorData.helpFull.like}
                         Dislike={subjectMajorData.helpFull.dislike}

@@ -69,13 +69,18 @@ const HelpfullRating = (props) => {
     //     canBlock: !lenBlock,
     //   });
     // }
-    setFormData({
-      ...FormData,
-      canBlock: !alreadyBlock.some((x) => x.userID == localStorage.getItem("UserID")),
-      canDisLike: !alreadyDisLiked.some((x) => x.userID == localStorage.getItem("UserID")),
-      canLike: !alreadyLiked.some((x) => x.userID == localStorage.getItem("UserID")),
-    });
-
+    // setFormData({
+    //   ...FormData,
+    //   canBlock: !alreadyBlock.some(
+    //     (x) => x.userID == localStorage.getItem("UserID"),
+    //   ),
+    //   canDisLike: !alreadyDisLiked.some(
+    //     (x) => x.userID == localStorage.getItem("UserID"),
+    //   ),
+    //   canLike: !alreadyLiked.some(
+    //     (x) => x.userID == localStorage.getItem("UserID"),
+    //   ),
+    // });
   }, []);
 
   const liked = () => {
@@ -292,7 +297,11 @@ const HelpfullRating = (props) => {
             className="comment d-none w-100"
             id={props.commentID + "comment"}
           >
-            <Coment id={props.commentID} ID={props.ID} subjectId={props.Subject} />
+            <Coment
+              id={props.commentID}
+              ID={props.ID}
+              subjectId={props.Subject}
+            />
           </div>
         </div>
         <div className="col-12 mt-3 p-0">

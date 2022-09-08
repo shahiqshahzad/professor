@@ -53,14 +53,16 @@ const ProfessorDetails = () => {
                 </div>
                 <div className="space-between col-12 col-lg-8 mt-3 pt-5 pt-lg-0">
                   <h3 className="mb-0 text-center">Most HelpFull Ratings</h3>
-                  {professoryData.helpFull !== null ? (
+                  {}
+
+                  {Object.keys(professoryData.helpFull).length !== 0 ? (
                     <>
                       {console.log("hardness", professoryData)}
                       <HelpfullRating
                         commentID={professoryData.helpFull.commentID}
                         ID={professoryData.helpFull.profID}
-                        hardness={professoryData.hardLevel.HardLevel.name}
-                        Name={professoryData.helpFull.user.name}
+                        hardness={professoryData.hardLevel.hardname}
+                        Name={professoryData.helpFull.User.name}
                         yearTaken={professoryData.helpFull.year}
                         rating={professoryData.helpFull.rating}
                         Feedback={professoryData.helpFull.comment}
@@ -76,7 +78,7 @@ const ProfessorDetails = () => {
                           { Exams: professoryData.helpFull.exams },
                           {
                             Again: JSON.stringify(
-                              professoryData.helpFull.again
+                              professoryData.helpFull.again,
                             ),
                           },
                           { Project: professoryData.helpFull.projects },

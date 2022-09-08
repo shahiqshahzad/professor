@@ -1,32 +1,32 @@
-import React from 'react'
-import '../Shared/FontAwesomeIcon'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import SecondNavbar from '../SecondNavbar'
-import sunglasses_emoji from '../../../Assets/img/sunglasses_emoji.png'
-import Relieved_Emoji from '../../../Assets/img/Relieved_Emoji.png'
-import Neutral_Emoji from '../../../Assets/img/Neutral_Emoji.png'
-import confounded_face from '../../../Assets/img/confounded-face.png'
-import Expressionless_Face from '../../../Assets/img/Expressionless_Face.png'
-import GetData from '../../Api/GetData'
-import PostData from '../../Api/PostData'
-import SearchableSelect from '../../atoms/SearchableSelect'
-import Account from '../../Api/Account'
-import { message } from 'antd'
+import React from "react";
+import "../Shared/FontAwesomeIcon";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SecondNavbar from "../SecondNavbar";
+import sunglasses_emoji from "../../../Assets/img/sunglasses_emoji.png";
+import Relieved_Emoji from "../../../Assets/img/Relieved_Emoji.png";
+import Neutral_Emoji from "../../../Assets/img/Neutral_Emoji.png";
+import confounded_face from "../../../Assets/img/confounded-face.png";
+import Expressionless_Face from "../../../Assets/img/Expressionless_Face.png";
+import GetData from "../../Api/GetData";
+import PostData from "../../Api/PostData";
+import SearchableSelect from "../../atoms/SearchableSelect";
+import Account from "../../Api/Account";
+import { message } from "antd";
 
 class SubjectRateMe extends React.Component {
   constructor(props) {
-    super()
+    super();
     this.state = {
       subjectID: props.match.params.subjectID,
       majorID: props.match.params.majorID,
-      again: '',
-      ratting: '',
-      hardRating: '',
-      YearTaken: '',
-      Project: '',
-      Homework: '',
-      name: 'Select Grade',
-      year: 'Select Year',
+      again: "",
+      ratting: "",
+      hardRating: "",
+      YearTaken: "",
+      Project: "",
+      Homework: "",
+      name: "Select Grade",
+      year: "Select Year",
       tags: [],
       selectedTags: [],
       years: [],
@@ -35,31 +35,30 @@ class SubjectRateMe extends React.Component {
       rating: [],
       examform: [],
       teachingstyle: [],
-      Description: '',
+      Description: "",
       subjectError: false,
       gradeError: false,
       yearError: false,
-      ExamForm: '',
+      ExamForm: "",
       isLoading: true,
       count: 0,
-    }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
     // GetData.Countries(this.Set);
-    console.log('props', this.props)
-    GetData.Grades(this.Set)
-    GetData.YearTaken(this.Set)
-    GetData.HardLevels(this.Set)
-    GetData.Rating(this.Set)
-    GetData.ExamForm(this.Set)
-    GetData.TeachingStyle(this.Set)
-    GetData.SubjectTags(this.Set)
+    GetData.Grades(this.Set);
+    GetData.YearTaken(this.Set);
+    GetData.HardLevels(this.Set);
+    GetData.Rating(this.Set);
+    GetData.ExamForm(this.Set);
+    GetData.TeachingStyle(this.Set);
+    GetData.SubjectTags(this.Set);
   }
 
   Set = (name, data) => {
-    console.log({ name, data })
+    console.log({ name, data });
     this.setState(
       {
         [name]: data,
@@ -75,43 +74,43 @@ class SubjectRateMe extends React.Component {
         ) {
           this.setState({
             isLoading: false,
-          })
+          });
         }
       },
-    )
-  }
+    );
+  };
 
   handleChange(event) {
-    console.log(event.target.value)
-    const { name, value, type, checked } = event.target
-    if (name === 'selectedTags') {
+    console.log(event.target.value);
+    const { name, value, type, checked } = event.target;
+    if (name === "selectedTags") {
       if (!this.state.selectedTags.includes(value)) {
-        let temp = this.state.selectedTags
-        temp.push(value)
+        let temp = this.state.selectedTags;
+        temp.push(value);
 
         this.setState({
           selectedTags: temp,
-        })
+        });
       } else {
         this.setState({
           selectedTags: this.state.selectedTags.filter((el) => el !== value),
-        })
+        });
       }
-    } else if (type === 'checkbox') {
-      this.setState({ [name]: checked })
+    } else if (type === "checkbox") {
+      this.setState({ [name]: checked });
     } else {
-      this.setState({ [name]: value })
+      this.setState({ [name]: value });
     }
-    console.log(this.state)
+    console.log(this.state);
   }
   onChange = (e, name) => {
     this.setState({
       [name]: e,
       count: 0,
-    })
-  }
+    });
+  };
   handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
     const {
       hardRating,
       Project,
@@ -120,10 +119,10 @@ class SubjectRateMe extends React.Component {
       Description,
       again,
       ratting,
-    } = this.state
+    } = this.state;
     this.setState({
       count: 1,
-    })
+    });
 
     if (
       hardRating &&
@@ -134,7 +133,7 @@ class SubjectRateMe extends React.Component {
       again &&
       ratting
     ) {
-      PostData.SubjectRattingAdd(this.state, this.set)
+      PostData.SubjectRattingAdd(this.state, this.set);
     }
   }
 
@@ -165,11 +164,11 @@ class SubjectRateMe extends React.Component {
                             label="Year"
                             Error={
                               this.state.count == 1 &&
-                              this.state.year == 'Select Year'
+                              this.state.year == "Select Year"
                             }
                           />
                         </div>
-                        {console.log('state', this.state)}
+                        {console.log("state", this.state.grades)}
                         <div className="col-lg-12 col-md-6 col-12 form-group px-1 mb-2">
                           <SearchableSelect
                             name="name"
@@ -180,7 +179,7 @@ class SubjectRateMe extends React.Component {
                             label="Grade"
                             Error={
                               this.state.count == 1 &&
-                              this.state.name == 'Select Grade'
+                              this.state.name == "Select Grade"
                             }
                           />
                         </div>
@@ -215,11 +214,11 @@ class SubjectRateMe extends React.Component {
                                     </p>
                                   </label>
                                 </>
-                              )
+                              );
                             })}
                           </div>
                         </label>
-                        {this.state.count == 1 && this.state.rating == '' ? (
+                        {this.state.count == 1 && this.state.rating == "" ? (
                           <p className="Errored text-center">
                             Select one of These
                           </p>
@@ -244,16 +243,14 @@ class SubjectRateMe extends React.Component {
                               htmlFor="hardRating-1-2"
                             >
                               <i>
-                                {' '}
                                 <img
                                   className="mb-3"
                                   src={sunglasses_emoji}
                                   alt=""
                                   height="36px"
-                                />{' '}
+                                />
                               </i>
                               <p className="Bold Black FS_10">
-                                {' '}
                                 {this.state.hardlevels[0].name}
                               </p>
                             </label>
@@ -270,13 +267,12 @@ class SubjectRateMe extends React.Component {
                               htmlFor="hardrating-2-2"
                             >
                               <i>
-                                {' '}
                                 <img
                                   className="mb-3"
                                   src={Relieved_Emoji}
                                   alt=""
                                   height="36px"
-                                />{' '}
+                                />
                               </i>
                               <p className="Bold Black FS_10">
                                 {this.state.hardlevels[1].name}
@@ -295,16 +291,15 @@ class SubjectRateMe extends React.Component {
                               htmlFor="hardrating-3-2"
                             >
                               <i>
-                                {' '}
+                                {" "}
                                 <img
                                   className="mb-3"
                                   src={Neutral_Emoji}
                                   alt=""
                                   height="36px"
-                                />{' '}
+                                />{" "}
                               </i>
                               <p className="Bold Black FS_10">
-                                {' '}
                                 {this.state.hardlevels[2].name}
                               </p>
                             </label>
@@ -321,13 +316,12 @@ class SubjectRateMe extends React.Component {
                               htmlFor="hardrating-4-2"
                             >
                               <i>
-                                {' '}
                                 <img
                                   className="mb-3"
                                   src={confounded_face}
                                   alt=""
                                   height="36px"
-                                />{' '}
+                                />
                               </i>
                               <p className="Bold Black FS_10">
                                 {this.state.hardlevels[3].name}
@@ -346,13 +340,12 @@ class SubjectRateMe extends React.Component {
                               htmlFor="hardrating-5-2"
                             >
                               <i>
-                                {' '}
                                 <img
                                   className="mb-3"
                                   src={Expressionless_Face}
                                   alt=""
                                   height="36px"
-                                />{' '}
+                                />
                               </i>
                               <p className="Bold Black FS_10">
                                 {this.state.hardlevels[4].name}
@@ -361,7 +354,7 @@ class SubjectRateMe extends React.Component {
                           </div>
                         </label>
                         {this.state.count == 1 &&
-                        this.state.hardRating == '' ? (
+                        this.state.hardRating == "" ? (
                           <p className="Errored text-center">
                             Select one of These
                           </p>
@@ -402,7 +395,7 @@ class SubjectRateMe extends React.Component {
                               </label>
                             </li>
                           </ul>
-                          {this.state.count == 1 && this.state.Project == '' ? (
+                          {this.state.count == 1 && this.state.Project == "" ? (
                             <p className="Errored">Select one of These</p>
                           ) : null}
                         </div>
@@ -444,7 +437,7 @@ class SubjectRateMe extends React.Component {
                             </li>
                           </ul>
                           {this.state.count == 1 &&
-                          this.state.Homework == '' ? (
+                          this.state.Homework == "" ? (
                             <p className="Errored">Select one of These</p>
                           ) : null}
                         </div>
@@ -457,7 +450,7 @@ class SubjectRateMe extends React.Component {
                         </p>
                         <p
                           className="m-0"
-                          style={{ color: 'red' }}
+                          style={{ color: "red" }}
                           id="chkbox"
                         ></p>
                         {this.state.tags.map((each) => {
@@ -483,10 +476,10 @@ class SubjectRateMe extends React.Component {
                                 {each.tagEN}
                               </label>
                             </div>
-                          )
+                          );
                         })}
                         {this.state.count == 1 &&
-                        this.state.selectedTags == '' ? (
+                        this.state.selectedTags == "" ? (
                           <p className="Errored">Select three of These</p>
                         ) : null}
                       </div>
@@ -510,10 +503,10 @@ class SubjectRateMe extends React.Component {
                                   {exam.name}
                                 </label>
                               </li>
-                            )
+                            );
                           })}
                         </ul>
-                        {this.state.count == 1 && this.state.ExamForm == '' ? (
+                        {this.state.count == 1 && this.state.ExamForm == "" ? (
                           <p className="Errored text-center">
                             Select one of These
                           </p>
@@ -525,7 +518,7 @@ class SubjectRateMe extends React.Component {
                         </p>
                         <p
                           className="m-0"
-                          style={{ color: 'red' }}
+                          style={{ color: "red" }}
                           id="chkbox"
                         ></p>
                         <div className="row">
@@ -545,7 +538,7 @@ class SubjectRateMe extends React.Component {
                             </label>
                           </div>
                           <div className="text-center mx-2">
-                            {' '}
+                            {" "}
                             <input
                               type="radio"
                               id="No"
@@ -561,7 +554,7 @@ class SubjectRateMe extends React.Component {
                             </label>
                           </div>
                         </div>
-                        {this.state.count == 1 && this.state.again == '' ? (
+                        {this.state.count == 1 && this.state.again == "" ? (
                           <p className="Errored">Select one of These</p>
                         ) : null}
                       </div>
@@ -576,7 +569,7 @@ class SubjectRateMe extends React.Component {
                           onChange={this.handleChange}
                         ></textarea>
                         {this.state.count == 1 &&
-                        this.state.Description == '' ? (
+                        this.state.Description == "" ? (
                           <p className="Errored py-0 text-center">
                             Please Give Your Comment
                           </p>
@@ -598,8 +591,8 @@ class SubjectRateMe extends React.Component {
           </div>
         )}
       </>
-    )
+    );
   }
 }
 
-export default SubjectRateMe
+export default SubjectRateMe;
