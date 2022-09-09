@@ -41,7 +41,7 @@ class PostData {
           subjectID: JSON.stringify(data.subjectID),
           profID: data.profID,
           year: data.year,
-          grade: data.name, //TODO: need gradeID instead of name
+          grade: data.gradeID, //TODO: need gradeID instead of name
           rating: data.ratting, //TODO: need ratingID instead of ratting
           hardness: data.hardRating, //TODO: need hardLevelID instead of hardRating
           exams: data.ExamForm, //TODO: need ExamFormID instead of ExamForm
@@ -58,7 +58,11 @@ class PostData {
           console.log(error);
         });
       this.result = resp;
-      console.log(resp);
+      if (resp.data.success) {
+        message.success(resp.data.message);
+      } else {
+        message.error(resp.data.message);
+      }
       return resp;
     };
     return res();

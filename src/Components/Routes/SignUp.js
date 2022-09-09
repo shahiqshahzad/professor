@@ -9,6 +9,8 @@ import Loader from "../../Loader";
 import Account from "../Api/Account";
 import GetData from "../Api/GetData";
 import Modall from "../atoms/Modall";
+import { Redirect } from "react-router-dom";
+import Navigate from "../Api/Navigate";
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -37,6 +39,7 @@ class SignUp extends React.Component {
       majorError: false,
       otpModal: false,
       otpError: "",
+      redirect: false,
     };
     this.handleChange = this.handleChange.bind(this);
     this.updatePhone = this.updatePhone.bind(this);
@@ -96,10 +99,12 @@ class SignUp extends React.Component {
     // if ([name] === "email" && value.includes("@") && value.includes(".")) {
     //   this.checkEmail(value);
     // }
-    const regex = new RegExp("/^[a-z0-9\_\.\-]{2,20}\@[a-z0-9\_\-]{2,20}\.[a-z]{2,9}$/")
+    const regex = new RegExp(
+      "/^[a-z0-9_.-]{2,20}@[a-z0-9_-]{2,20}.[a-z]{2,9}$/",
+    );
 
     if (name === "email" && regex.test(value)) {
-      this.checkEmail(value)
+      this.checkEmail(value);
     }
   }
 
@@ -188,6 +193,7 @@ class SignUp extends React.Component {
         console.log(res);
         if (res.data.success) {
           this.setState({ otpModel: false });
+          message.success(res.data.message);
         } else if (res.data.success === false) {
           message.error(res.data.message);
           this.setState({ otpError: res.data.message });
@@ -227,8 +233,8 @@ class SignUp extends React.Component {
                           Become a Member Now
                         </p>
                         <p className="text-center text-white FS_14">
-                          What is Lorem Ipsum Lorem text of the printing and type
-                          has been the industry
+                          What is Lorem Ipsum Lorem text of the printing and
+                          type has been the industry
                         </p>
                       </div>
                     </div>
@@ -280,10 +286,7 @@ class SignUp extends React.Component {
                       // onChange={phone => this.setState({ phone })}
                       onChange={this.updatePhone}
                       isValid={(inputNumber, value, country) => {
-                        const newStr = inputNumber.replace(
-                          value.dialCode,
-                          ""
-                        );
+                        const newStr = inputNumber.replace(value.dialCode, "");
                         if (value.dialCode === "") {
                           return "Select Country Code";
                         } else if (newStr === "" && this.state.count) {
@@ -307,8 +310,9 @@ class SignUp extends React.Component {
                         <option value="Female">Female</option>
                       </select>
                       <label
-                        className={` ${this.state.gender !== "" ? "Valued" : "d-none"
-                          }`}
+                        className={` ${
+                          this.state.gender !== "" ? "Valued" : "d-none"
+                        }`}
                         htmlFor="gender"
                       >
                         Gender
@@ -377,7 +381,7 @@ class SignUp extends React.Component {
                     openModel={this.state.otpModal}
                     closable={false}
                     value={this.state.otp}
-                    reciver='Email'
+                    reciver="Email"
                     otpChange={this.otpChange}
                     error={this.state.otpError}
                     ResendCode={this.ResendCode}

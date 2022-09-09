@@ -35,7 +35,7 @@ export default function ProfessorRatting() {
                     <HelpfullRating
                       commentID={each.commentID}
                       ID={each.profID}
-                      Name={each.user.name}
+                      Name={each.User.name}
                       yearTaken={each.year}
                       rating={each.rating}
                       Feedback={each.comment}

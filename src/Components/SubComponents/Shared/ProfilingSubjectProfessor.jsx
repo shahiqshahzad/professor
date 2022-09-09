@@ -1,8 +1,8 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-import Aplus from '../../../Assets/img/APlus.svg'
-import Star from '../../../Assets/img/5Star.svg'
-import sad from '../../../Assets/img/sad.svg'
+import React from "react";
+import { NavLink } from "react-router-dom";
+import Aplus from "../../../Assets/img/APlus.svg";
+import Star from "../../../Assets/img/5Star.svg";
+import sad from "../../../Assets/img/sad.svg";
 const Profile = (props) => {
   return (
     <>
@@ -78,7 +78,7 @@ const Profile = (props) => {
             </div>
           </div>
 
-          {props.from !== 'Subject' ? (
+          {props.from !== "Subject" ? (
             <>
               <div className="col px-xl-3 px-lg-1 px-sm-3 px-1 Rating">
                 <div className="Edge btm_shadow ">
@@ -117,6 +117,18 @@ const Profile = (props) => {
               </div>
             </div>
           </div>
+          <div className="col-12 mt-3 px-0">
+            <div className="ratting-document-btn container mt-3 ">
+              <NavLink
+                className="nav-link m-0 p-0 mx-auto"
+                to={`/ProfessorRating/RateMe/${props.majorid}/${props.professorID}`}
+              >
+                <button className=" w-100 border-0 filled_btn d-block bottom-0">
+                  Rate Me
+                </button>
+              </NavLink>
+            </div>
+          </div>
         </div>
         <div className="col-12 mt-3 px-0">
           <p className="FS_20 mb-0 Bold">Top 3 tags or this {props.from}</p>
@@ -136,13 +148,13 @@ const Profile = (props) => {
                     {each}
                   </button>
                 </div>
-              )
+              );
             })
           )}
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;

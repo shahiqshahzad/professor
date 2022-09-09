@@ -1,35 +1,35 @@
-import React from 'react'
-import '../Shared/FontAwesomeIcon'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import SecondNavbar from '../SecondNavbar'
-import sunglasses_emoji from '../../../Assets/img/sunglasses_emoji.png'
-import Relieved_Emoji from '../../../Assets/img/Relieved_Emoji.png'
-import Neutral_Emoji from '../../../Assets/img/Neutral_Emoji.png'
-import confounded_face from '../../../Assets/img/confounded-face.png'
-import Expressionless_Face from '../../../Assets/img/Expressionless_Face.png'
-import GetData from '../../Api/GetData'
-import PostData from '../../Api/PostData'
-import SearchableSelect from '../../atoms/SearchableSelect'
-import Account from '../../Api/Account'
-import { message } from 'antd'
-import { each } from 'jquery'
+import React from "react";
+import "../Shared/FontAwesomeIcon";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SecondNavbar from "../SecondNavbar";
+import sunglasses_emoji from "../../../Assets/img/sunglasses_emoji.png";
+import Relieved_Emoji from "../../../Assets/img/Relieved_Emoji.png";
+import Neutral_Emoji from "../../../Assets/img/Neutral_Emoji.png";
+import confounded_face from "../../../Assets/img/confounded-face.png";
+import Expressionless_Face from "../../../Assets/img/Expressionless_Face.png";
+import GetData from "../../Api/GetData";
+import PostData from "../../Api/PostData";
+import SearchableSelect from "../../atoms/SearchableSelect";
+import Account from "../../Api/Account";
+import { message } from "antd";
+import { each } from "jquery";
 
 class ProfessorRateMe extends React.Component {
   constructor(props) {
-    super()
+    super();
     this.state = {
       profID: props.match.params.professorID,
-      again: '',
-      YearTaken: '',
-      ratting: '',
-      hardRating: '',
-      TeachingStyle: '',
-      Attandance: '',
-      Project: '',
-      Homework: '',
-      curve: '',
-      name: 'Select Grade',
-      year: 'Select Year',
+      again: "",
+      YearTaken: "",
+      ratting: "",
+      hardRating: "",
+      TeachingStyle: "",
+      Attandance: "",
+      Project: "",
+      Homework: "",
+      curve: "",
+      name: "Select Grade",
+      year: "Select Year",
       tags: [],
       selectedTags: [],
       years: [],
@@ -38,34 +38,34 @@ class ProfessorRateMe extends React.Component {
       rating: [],
       examform: [],
       teachingstyle: [],
-      subjectID: 'Select Subject',
+      subjectID: "Select Subject",
       subjects: [],
-      Description: '',
+      Description: "",
       subjectError: false,
       gradeError: false,
       yearError: false,
-      ExamForm: '',
+      ExamForm: "",
       isLoading: true,
       count: 0,
-    }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
     // GetData.Countries(this.Set);
-    console.log('props', this.props)
-    GetData.Subjects(this.props.match.params.majorid, this.Set)
-    GetData.Grades(this.Set)
-    GetData.YearTaken(this.Set)
-    GetData.HardLevels(this.Set)
-    GetData.Rating(this.Set)
-    GetData.ExamForm(this.Set)
-    GetData.TeachingStyle(this.Set)
-    GetData.professorTags(this.Set)
+    console.log("props", this.props);
+    GetData.Subjects(this.props.match.params.majorid, this.Set);
+    GetData.Grades(this.Set);
+    GetData.YearTaken(this.Set);
+    GetData.HardLevels(this.Set);
+    GetData.Rating(this.Set);
+    GetData.ExamForm(this.Set);
+    GetData.TeachingStyle(this.Set);
+    GetData.professorTags(this.Set);
   }
 
   Set = (name, data) => {
-    console.log({ name, data })
+    console.log({ name, data });
     this.setState(
       {
         [name]: data,
@@ -83,44 +83,44 @@ class ProfessorRateMe extends React.Component {
         ) {
           this.setState({
             isLoading: false,
-          })
+          });
         }
       },
-    )
-  }
+    );
+  };
 
   handleChange(event) {
-    console.log(event.target.value)
-    const { name, value, type, checked } = event.target
-    if (name === 'selectedTags') {
+    console.log(event.target.value);
+    const { name, value, type, checked } = event.target;
+    if (name === "selectedTags") {
       if (!this.state.selectedTags.includes(value)) {
-        let temp = this.state.selectedTags
-        temp.push(value)
+        let temp = this.state.selectedTags;
+        temp.push(value);
 
         this.setState({
           selectedTags: temp,
-        })
+        });
       } else {
         this.setState({
           selectedTags: this.state.selectedTags.filter((el) => el !== value),
-        })
+        });
       }
-    } else if (type === 'checkbox') {
-      this.setState({ [name]: checked })
+    } else if (type === "checkbox") {
+      this.setState({ [name]: checked });
     } else {
-      this.setState({ [name]: value })
+      this.setState({ [name]: value });
     }
-    console.log(this.state)
+    console.log(this.state);
   }
 
   onChange = (e, name) => {
     this.setState({
       [name]: e,
       count: 0,
-    })
-  }
+    });
+  };
   handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
     const {
       TeachingStyle,
       hardRating,
@@ -132,10 +132,10 @@ class ProfessorRateMe extends React.Component {
       Description,
       again,
       ratting,
-    } = this.state
+    } = this.state;
     this.setState({
       count: 1,
-    })
+    });
 
     if (
       TeachingStyle &&
@@ -149,7 +149,7 @@ class ProfessorRateMe extends React.Component {
       again &&
       ratting
     ) {
-      PostData.RattingAdd(this.state, this.set)
+      PostData.RattingAdd(this.state, this.set);
     }
   }
 
@@ -180,22 +180,22 @@ class ProfessorRateMe extends React.Component {
                             label="Year"
                             Error={
                               this.state.count == 1 &&
-                              this.state.year == 'Select Year'
+                              this.state.year == "Select Year"
                             }
                           />
                         </div>
-                        {console.log('state', this.state)}
+                        {console.log("state", this.state)}
                         <div className="col-12 col-md-6 form-group px-1 mb-2">
                           <SearchableSelect
-                            name="name"
-                            value={this.state.name}
+                            name="gradeID"
+                            value={this.state.gradeID}
                             function={this.onChange}
                             list={this.state.grades}
                             objName="name"
                             label="Grade"
                             Error={
                               this.state.count == 1 &&
-                              this.state.name == 'Select Grade'
+                              this.state.name == "Select Grade"
                             }
                           />
                         </div>
@@ -209,7 +209,7 @@ class ProfessorRateMe extends React.Component {
                             label="Subject"
                             Error={
                               this.state.count == 1 &&
-                              this.state.subjectID == 'Select Subject'
+                              this.state.subjectID == "Select Subject"
                             }
                           />
                         </div>
@@ -244,12 +244,12 @@ class ProfessorRateMe extends React.Component {
                                     </p>
                                   </label>
                                 </>
-                              )
+                              );
                             })}
                           </div>
                         </label>
 
-                        {this.state.count == 1 && this.state.rating == '' ? (
+                        {this.state.count == 1 && this.state.rating == "" ? (
                           <p className="Errored text-center">
                             Select one of These
                           </p>
@@ -274,16 +274,16 @@ class ProfessorRateMe extends React.Component {
                               htmlFor="hardRating-1-2"
                             >
                               <i>
-                                {' '}
+                                {" "}
                                 <img
                                   className="mb-3"
                                   src={sunglasses_emoji}
                                   alt=""
                                   height="36px"
-                                />{' '}
+                                />{" "}
                               </i>
                               <p className="Bold Black FS_10">
-                                {' '}
+                                {" "}
                                 {this.state.hardlevels[0].name}
                               </p>
                             </label>
@@ -300,13 +300,13 @@ class ProfessorRateMe extends React.Component {
                               htmlFor="hardrating-2-2"
                             >
                               <i>
-                                {' '}
+                                {" "}
                                 <img
                                   className="mb-3"
                                   src={Relieved_Emoji}
                                   alt=""
                                   height="36px"
-                                />{' '}
+                                />{" "}
                               </i>
                               <p className="Bold Black FS_10">
                                 {this.state.hardlevels[1].name}
@@ -325,16 +325,16 @@ class ProfessorRateMe extends React.Component {
                               htmlFor="hardrating-3-2"
                             >
                               <i>
-                                {' '}
+                                {" "}
                                 <img
                                   className="mb-3"
                                   src={Neutral_Emoji}
                                   alt=""
                                   height="36px"
-                                />{' '}
+                                />{" "}
                               </i>
                               <p className="Bold Black FS_10">
-                                {' '}
+                                {" "}
                                 {this.state.hardlevels[2].name}
                               </p>
                             </label>
@@ -351,13 +351,13 @@ class ProfessorRateMe extends React.Component {
                               htmlFor="hardrating-4-2"
                             >
                               <i>
-                                {' '}
+                                {" "}
                                 <img
                                   className="mb-3"
                                   src={confounded_face}
                                   alt=""
                                   height="36px"
-                                />{' '}
+                                />{" "}
                               </i>
                               <p className="Bold Black FS_10">
                                 {this.state.hardlevels[3].name}
@@ -376,13 +376,13 @@ class ProfessorRateMe extends React.Component {
                               htmlFor="hardrating-5-2"
                             >
                               <i>
-                                {' '}
+                                {" "}
                                 <img
                                   className="mb-3"
                                   src={Expressionless_Face}
                                   alt=""
                                   height="36px"
-                                />{' '}
+                                />{" "}
                               </i>
                               <p className="Bold Black FS_10">
                                 {this.state.hardlevels[4].name}
@@ -391,7 +391,7 @@ class ProfessorRateMe extends React.Component {
                           </div>
                         </label>
                         {this.state.count == 1 &&
-                        this.state.hardRating == '' ? (
+                        this.state.hardRating == "" ? (
                           <p className="Errored text-center">
                             Select one of These
                           </p>
@@ -409,7 +409,7 @@ class ProfessorRateMe extends React.Component {
                                   type="radio"
                                   id={each.name}
                                   name="TeachingStyle"
-                                  value={each.name}
+                                  value={each.teachingStyleID}
                                   onClick={this.handleChange}
                                 />
                                 <label
@@ -419,11 +419,11 @@ class ProfessorRateMe extends React.Component {
                                   {each.name}
                                 </label>
                               </li>
-                            )
+                            );
                           })}
                         </ul>
                         {this.state.count == 1 &&
-                        this.state.TeachingStyle == '' ? (
+                        this.state.TeachingStyle == "" ? (
                           <p className="Errored">Select one TeachingStyle</p>
                         ) : null}
                       </div>
@@ -463,7 +463,7 @@ class ProfessorRateMe extends React.Component {
                             </li>
                           </ul>
                           {this.state.count == 1 &&
-                          this.state.Attandance == '' ? (
+                          this.state.Attandance == "" ? (
                             <p className="Errored">Select one of These</p>
                           ) : null}
                           <h5 className="mt-3">Project</h5>
@@ -499,7 +499,7 @@ class ProfessorRateMe extends React.Component {
                               </label>
                             </li>
                           </ul>
-                          {this.state.count == 1 && this.state.Project == '' ? (
+                          {this.state.count == 1 && this.state.Project == "" ? (
                             <p className="Errored">Select one of These</p>
                           ) : null}
                         </div>
@@ -538,7 +538,7 @@ class ProfessorRateMe extends React.Component {
                             </li>
                           </ul>
                           {this.state.count == 1 &&
-                          this.state.Homework == '' ? (
+                          this.state.Homework == "" ? (
                             <p className="Errored">Select one of These</p>
                           ) : null}
                           <h5 className="mt-3">Curve</h5>
@@ -574,7 +574,7 @@ class ProfessorRateMe extends React.Component {
                               </label>
                             </li>
                           </ul>
-                          {this.state.count == 1 && this.state.curve == '' ? (
+                          {this.state.count == 1 && this.state.curve == "" ? (
                             <p className="Errored">Select one of These</p>
                           ) : null}
                         </div>
@@ -586,9 +586,10 @@ class ProfessorRateMe extends React.Component {
                         </p>
                         <p
                           className="m-0"
-                          style={{ color: 'red' }}
+                          style={{ color: "red" }}
                           id="chkbox"
                         ></p>
+                        {console.log("tags", this.state.tags)}
                         {this.state.tags.map((each) => {
                           return (
                             <div className="form-check-inline col-5 col-sm-3 my-2 text-center px-1">
@@ -596,7 +597,7 @@ class ProfessorRateMe extends React.Component {
                                 type="checkbox"
                                 id={each.tagEN}
                                 className="chkbox"
-                                value={each.tagEN}
+                                value={each.tagID}
                                 name="selectedTags"
                                 disabled={
                                   !this.state.selectedTags.includes(
@@ -612,10 +613,10 @@ class ProfessorRateMe extends React.Component {
                                 {each.tagEN}
                               </label>
                             </div>
-                          )
+                          );
                         })}
                         {this.state.count == 1 &&
-                        this.state.selectedTags == '' ? (
+                        this.state.selectedTags == "" ? (
                           <p className="Errored Bold">Select three of These</p>
                         ) : null}
                       </div>
@@ -629,7 +630,7 @@ class ProfessorRateMe extends React.Component {
                                   type="radio"
                                   id={exam.name}
                                   name="ExamForm"
-                                  value={exam.name}
+                                  value={exam.examFromID}
                                   onClick={this.handleChange}
                                 />
                                 <label
@@ -639,10 +640,10 @@ class ProfessorRateMe extends React.Component {
                                   {exam.name}
                                 </label>
                               </li>
-                            )
+                            );
                           })}
                         </ul>
-                        {this.state.count == 1 && this.state.ExamForm == '' ? (
+                        {this.state.count == 1 && this.state.ExamForm == "" ? (
                           <p className="Errored text-center">
                             Select one of These
                           </p>
@@ -654,7 +655,7 @@ class ProfessorRateMe extends React.Component {
                         </p>
                         <p
                           className="m-0"
-                          style={{ color: 'red' }}
+                          style={{ color: "red" }}
                           id="chkbox"
                         ></p>
                         <div className="row">
@@ -663,7 +664,7 @@ class ProfessorRateMe extends React.Component {
                               type="radio"
                               id="Yes"
                               name="again"
-                              value="true"
+                              value={1}
                               onClick={this.handleChange}
                             />
                             <label
@@ -674,12 +675,11 @@ class ProfessorRateMe extends React.Component {
                             </label>
                           </div>
                           <div className="mr-auto mx-2">
-                            {' '}
                             <input
                               type="radio"
                               id="No"
                               name="again"
-                              value="false"
+                              value={0}
                               onClick={this.handleChange}
                             />
                             <label
@@ -690,7 +690,7 @@ class ProfessorRateMe extends React.Component {
                             </label>
                           </div>
                         </div>
-                        {this.state.count == 1 && this.state.again == '' ? (
+                        {this.state.count == 1 && this.state.again == "" ? (
                           <p className="Errored">Select one of These</p>
                         ) : null}
                       </div>
@@ -705,7 +705,7 @@ class ProfessorRateMe extends React.Component {
                           onChange={this.handleChange}
                         ></textarea>
                         {this.state.count == 1 &&
-                        this.state.Description == '' ? (
+                        this.state.Description == "" ? (
                           <p className="Errored py-0 text-center">
                             Please Give Your Comment
                           </p>
@@ -727,8 +727,8 @@ class ProfessorRateMe extends React.Component {
           </div>
         )}
       </>
-    )
+    );
   }
 }
 
-export default ProfessorRateMe
+export default ProfessorRateMe;
